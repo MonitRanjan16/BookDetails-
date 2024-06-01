@@ -1,0 +1,101 @@
+package maccess;
+
+import java.util.*;
+import monit1.*;
+
+public class DemoSet3 {
+    @SuppressWarnings("removal")
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        String name = null;
+        Set<BookDetails> ob = null;
+        try (s;) {
+            try {
+                while (true) {
+                    System.out.println("***Choice***");
+                    System.out.println("1. HashSet\n2. LinkedHashSet\n3. TreeSet\n4. Exit");
+                    System.out.print("Enter the Choice: ");
+                    switch (Integer.parseInt(s.nextLine())) {
+                        case 1:
+                            ob = new HashSet<BookDetails>();
+                            name = "HashSet";
+                            break;
+                        case 2:
+                            ob = new LinkedHashSet<BookDetails>();
+                            name = "LinkedHashSet";
+                            break;
+                        case 3:
+                            ob = new TreeSet<BookDetails>();
+                            name = "TreeSet";
+                            break;
+                        case 4:
+                            System.out.println("Operations stopped of set");
+                            System.exit(0);
+                            break;
+                        default:
+                            System.out.println("Invalid Choice...");
+                            continue;
+                    }
+                    System.out.println("***Operations on " + name + "****");
+                    xyz:
+                    while (true) {
+                        System.out.println("****Choice****");
+                        System.out.println("1. Add\n2. Remove\n3. Display\n4. Exit");
+                        System.out.print("Enter the choice: ");
+                        switch (Integer.parseInt(s.nextLine())) {
+                            case 1:
+                                System.out.print("Enter the code: ");
+                                String bc = s.nextLine();
+                                System.out.print("Enter the name: ");
+                                String bN = s.nextLine();
+                                System.out.print("Enter the author: ");
+                                String bA = s.nextLine();
+                                System.out.print("Enter the price: ");
+                                float bP = Float.parseFloat(s.nextLine());
+                                System.out.print("Enter the qty: ");
+                                int bQ = Integer.parseInt(s.nextLine());
+                                ob.add(new BookDetails(bc, bN, bA, bP, bQ));
+                                System.out.println("BookDetails added Successfully...");
+                                break;
+                            case 2:
+                                if (ob.isEmpty()) {
+                                    System.out.println("Set is empty...");
+                                } else {
+                                    System.out.print("Enter the ele (code) to be removed: ");
+                                    String code2 = s.nextLine();
+                                    boolean p = false;
+                                    Iterator<BookDetails> it = ob.iterator();
+                                    while (it.hasNext()) {
+                                        BookDetails bd = (BookDetails) it.next();
+                                        if (bd.code.equals(code2)) {
+                                            p = true;
+                                            it.remove();
+                                            System.out.println("Ele removed Successfully...");
+                                            break;
+                                        }
+                                    }
+                                    if (!p) {
+                                        System.out.println("Element not found...");
+                                    }
+                                }
+                                break;
+                            case 3:
+                                System.out.println("***BookDetails***");
+                                ob.forEach(k -> {
+                                    System.out.println(k.toString());
+                                });
+                                break;
+                            case 4:
+                                System.out.println("Operations stopped on " + name);
+                                break xyz;
+                            default:
+                                System.out.println("Invalid Choice...");
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
